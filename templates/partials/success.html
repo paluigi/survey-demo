@@ -1,0 +1,9 @@
+<article class="success-card">
+    <h3>Thank you!</h3>
+    <p>Your response has been recorded{% if favourite %} — favourite country:
+       <strong>{{ country_name(favourite) }}</strong>{% endif %}.</p>
+    <div class="grid">
+        <a href="/results" role="button">See the results</a>
+        <a href="/" role="button" class="outline">Submit another response</a>
+    </div>
+</article>

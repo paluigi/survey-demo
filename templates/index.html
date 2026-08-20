@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Travel Survey — about your travels{% endblock %}
+{% block content %}
+{% if request.query_params.get('error') == 'validation' %}
+<article class="error-banner">
+    <h3>We could not save your response</h3>
+    <p>Please go back and check the form: the favourite country must be one you have already visited,
+       and required fields (age band, gender) must be filled in.</p>
+</article>
+{% endif %}
+<div id="form-wrap">
+    <form hx-post="/submit" hx-target="#form-wrap" hx-swap="outerHTML">
+        <article>
+            <h2>About you</h2>
+            <p class="muted">Age band and gender are required; everything else is optional.</p>
+            <div class="grid">
+                <label>
+                    Age band *
+                    <select name="age_band" required>
+                        <option value="">Select…</option>
+                        {% for band in age_bands %}
+                        <option value="{{ band.value }}">{{ band.value }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    Gender *
+                    <select name="gender" required>
+                        <option value="">Select…</option>
+                        {% for g in genders %}
+                        <option value="{{ g.value }}">{{ gender_label(g.value) }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            <div class="grid">
+                <label>
+                    Education
+                    <select name="education">
+                        <option value="">Prefer not to say</option>
+                        {% for level in education_levels %}
+                        <option value="{{ level.value }}">{{ level.value | capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    Country of residence
+                    <select name="residence_country">
+                        <option value="">Prefer not to say</option>
+                        {% for code, name in countries %}
+                        <option value="{{ code }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            <label>
+                Home country
+                <select name="home_country">
+                    <option value="">Prefer not to say</option>
+                    {% for code, name in countries %}
+                    <option value="{{ code }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </article>
+
+        <article>
+            <h2>Which countries have you already been to?</h2>
+            <div class="picker-tools">
+                <input type="search" class="country-search" data-target="#visited-grid"
+                       placeholder="Search country…" autocomplete="off">
+                <span class="muted"><span data-count-for="#visited-grid">0</span> selected</span>
+                <button type="button" class="outline subtle" data-clear="#visited-grid">Clear</button>
+            </div>
+            <div class="country-grid" id="visited-grid" role="group" aria-label="Visited countries">
+                {% for code, name in countries %}
+                <label class="country-option">
+                    <input type="checkbox" name="visited" value="{{ code }}"> <span>{{ name }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </article>
+
+        <article>
+            <h2>Which countries would you like to visit?</h2>
+            <div class="picker-tools">
+                <input type="search" class="country-search" data-target="#wishlist-grid"
+                       placeholder="Search country…" autocomplete="off">
+                <span class="muted"><span data-count-for="#wishlist-grid">0</span> selected</span>
+                <button type="button" class="outline subtle" data-clear="#wishlist-grid">Clear</button>
+            </div>
+            <div class="country-grid" id="wishlist-grid" role="group" aria-label="Wishlist countries">
+                {% for code, name in countries %}
+                <label class="country-option">
+                    <input type="checkbox" name="wishlist" value="{{ code }}"> <span>{{ name }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </article>
+
+        <article>
+            <h2>Your favourite country</h2>
+            <label for="favourite">
+                Pick <strong>one</strong> country — it must be one you have already visited.
+            </label>
+            <select name="favourite" id="favourite">
+                <option value="">— Select one of your visited countries —</option>
+                {% for code, name in countries %}
+                <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            <p class="muted">The list narrows to your visited countries as you tick them above.</p>
+        </article>
+
+        <div class="form-actions">
+            <div id="form-feedback" role="alert"></div>
+            <button type="submit">Submit response</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/countryPicker.js" defer></script>
+{% endblock %}

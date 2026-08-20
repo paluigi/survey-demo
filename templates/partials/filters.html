@@ -1,0 +1,68 @@
+<form id="filters"
+      hx-get="/results" hx-target="#results-data" hx-swap="outerHTML" hx-trigger="change"
+      hx-push-url="true">
+    <article class="filters-card">
+        <div class="filters-head">
+            <strong>Filter by demographics</strong>
+            <a href="/results" class="subtle" role="button">Reset</a>
+        </div>
+        <div class="grid">
+            <label>
+                Age band
+                <select name="age_band">
+                    <option value="">All</option>
+                    {% for band in age_bands %}
+                    <option value="{{ band.value }}"
+                            {% if filters.age_band and filters.age_band.value == band.value %}selected{% endif %}>
+                        {{ band.value }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Gender
+                <select name="gender">
+                    <option value="">All</option>
+                    {% for g in genders %}
+                    <option value="{{ g.value }}"
+                            {% if filters.gender and filters.gender.value == g.value %}selected{% endif %}>
+                        {{ gender_label(g.value) }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Education
+                <select name="education">
+                    <option value="">All</option>
+                    {% for level in education_levels %}
+                    <option value="{{ level.value }}"
+                            {% if filters.education and filters.education.value == level.value %}selected{% endif %}>
+                        {{ level.value | capitalize }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Country of residence
+                <select name="residence_country">
+                    <option value="">All</option>
+                    {% for code, name in countries %}
+                    <option value="{{ code }}"
+                            {% if filters.residence_country == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Home country
+                <select name="home_country">
+                    <option value="">All</option>
+                    {% for code, name in countries %}
+                    <option value="{{ code }}"
+                            {% if filters.home_country == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+    </article>
+</form>

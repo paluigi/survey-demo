@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Results — Travel Survey{% endblock %}
+{% block content %}
+<header class="page-header">
+    <h1>Results</h1>
+    <p>World maps shaded by how many respondents selected each country, plus the numeric table.
+       Filter by demographics — the map and table update together.</p>
+</header>
+
+{% include "partials/filters.html" %}
+
+<section class="map-layout">
+    <div class="map-wrap">
+        <div class="cat-chips" role="group" aria-label="Map metric">
+            <button class="chip active" type="button" data-cat="visited">Visited</button>
+            <button class="chip" type="button" data-cat="want">Want to visit</button>
+            <button class="chip" type="button" data-cat="favourite">Favourite</button>
+        </div>
+        <div id="map">
+            <div id="map-status" class="map-overlay">Loading map…</div>
+            <div id="map-legend" class="map-overlay legend" aria-hidden="true"></div>
+        </div>
+        <p class="muted small">
+            Shading = number of respondents who selected the country for the active metric.
+            Click a country for details. Geometry © Natural Earth (public domain).
+        </p>
+    </div>
+    <aside id="map-cards" class="map-side" aria-live="polite">
+        <p class="muted">Click a country on the map (or a row in the table) to see its numbers.</p>
+    </aside>
+</section>
+
+{% include "partials/results_data.html" %}
+{% endblock %}
+{% block scripts %}
+<script src="/static/vendor/maplibre-gl.js" defer></script>
+<script src="/static/js/map.js" defer></script>
+{% endblock %}

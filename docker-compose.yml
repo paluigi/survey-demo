@@ -1,0 +1,41 @@
+services:
+  app:
+    image: paluigi/survey-demo:latest
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DB: survey_demo
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  # Demo data: docker compose --profile seed run seed
+  seed:
+    image: paluigi/survey-demo:latest
+    build: .
+    profiles: ["seed"]
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DB: survey_demo
+    entrypoint: ["python", "-m", "survey.seed", "--count", "80"]
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  mongo_data:

@@ -1,0 +1,23 @@
+<figure class="table-wrap">
+    <table>
+        <thead>
+        <tr>
+            <th>Country</th>
+            <th class="num">Visited</th>
+            <th class="num">Want to visit</th>
+            <th class="num">Favourite</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in stats.rows() %}
+        <tr class="row-link" data-country="{{ row.code }}">
+            <td>{{ row.name }}</td>
+            <td class="num">{{ row.visited }}</td>
+            <td class="num">{{ row.want }}</td>
+            <td class="num">{{ row.favourite }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <figcaption>Sorted by favourites, then visits. Click a row to highlight the country on the map.</figcaption>
+</figure>

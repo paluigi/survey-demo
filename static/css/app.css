@@ -1,0 +1,363 @@
+/* Custom styling on top of Pico CSS. Uses Pico v2 CSS variables so the
+   light/dark themes keep working automatically. */
+
+:root {
+    --accent: #1d4ed8;
+}
+
+.muted {
+    color: var(--pico-muted-color);
+}
+
+.small {
+    font-size: 0.85rem;
+}
+
+/* ---- Top navigation ---- */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding-block: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.topbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-right: auto;
+}
+
+.topbar .brand svg {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a[aria-current="page"] {
+    color: var(--pico-primary);
+    font-weight: 600;
+}
+
+#theme-toggle {
+    padding: 0.35rem 0.55rem;
+    margin: 0;
+}
+
+#theme-toggle svg {
+    width: 1.1em;
+    height: 1.1em;
+    display: block;
+    margin: 0;
+}
+
+html[data-theme="light"] #theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] #theme-toggle .icon-sun { display: none; }
+
+/* ---- Survey form ---- */
+
+.picker-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+}
+
+.picker-tools input[type="search"] {
+    margin: 0;
+    flex: 1;
+    min-width: 12rem;
+}
+
+button.subtle {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.country-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 0 1rem;
+    max-height: 18rem;
+    overflow-y: auto;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius);
+}
+
+.country-option {
+    margin: 0;
+    padding: 0.12rem 0.2rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+}
+
+.country-option input[type="checkbox"] {
+    margin: 0;
+    width: 0.95rem;
+    height: 0.95rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.form-actions button {
+    margin: 0;
+}
+
+#form-feedback {
+    flex: 1;
+}
+
+.error-banner,
+.error-card {
+    border-left: 0.35rem solid #dc3545;
+}
+
+.success-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+}
+
+.success-card .grid {
+    max-width: 30rem;
+    margin: 1.5rem auto 0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+/* ---- Results page ---- */
+
+.page-header {
+    margin-bottom: 0.75rem;
+}
+
+.page-header p {
+    color: var(--pico-muted-color);
+    margin-bottom: 0;
+}
+
+.filters-card {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.filters-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.filters-card .grid {
+    margin-bottom: 0;
+}
+
+.filters-card label {
+    margin-bottom: 0;
+}
+
+.summary-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+}
+
+.chip-static {
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: 999px;
+    padding: 0.25rem 0.95rem;
+    font-size: 0.9rem;
+}
+
+/* ---- Map ---- */
+
+.map-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 992px) {
+    .map-layout {
+        grid-template-columns: minmax(0, 2.4fr) minmax(16rem, 1fr);
+    }
+}
+
+.cat-chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.chip {
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: 999px;
+    background: var(--pico-card-background-color);
+    color: inherit;
+    padding: 0.3rem 1.1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin: 0;
+}
+
+.chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+#map {
+    position: relative;
+    height: 60vh;
+    min-height: 24rem;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius);
+    overflow: hidden;
+}
+
+.map-overlay {
+    position: absolute;
+    z-index: 5;
+    background: color-mix(in srgb, var(--pico-card-background-color) 90%, transparent);
+    color: var(--pico-color);
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+#map-status {
+    top: 0.75rem;
+    left: 0.75rem;
+}
+
+.legend {
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.legend-item i {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 0.15rem;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.map-side {
+    min-width: 0;
+}
+
+.map-side article {
+    margin: 0;
+}
+
+.map-card-stats {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.map-card-stats div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px dashed var(--pico-muted-border-color);
+    padding-bottom: 0.35rem;
+}
+
+.map-card-stats dt {
+    font-weight: 600;
+    margin: 0;
+}
+
+.map-card-stats dd {
+    margin: 0;
+}
+
+/* MapLibre popup in dark mode */
+
+html[data-theme="dark"] .maplibregl-popup-content {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .maplibregl-popup-tip {
+    border-top-color: #1e293b;
+    border-bottom-color: #1e293b;
+}
+
+/* ---- Results table ---- */
+
+.table-wrap {
+    margin: 0.5rem 0 1rem;
+    overflow-x: auto;
+}
+
+.table-wrap table {
+    margin: 0;
+}
+
+td.num,
+th.num {
+    text-align: right;
+}
+
+tr.row-link {
+    cursor: pointer;
+}
+
+tr.row-link:hover {
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.table-wrap figcaption {
+    color: var(--pico-muted-color);
+    font-size: 0.85rem;
+}
+
+/* ---- Footer ---- */
+
+footer {
+    margin-top: 2.5rem;
+    color: var(--pico-muted-color);
+}

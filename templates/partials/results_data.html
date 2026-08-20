@@ -1,0 +1,20 @@
+<div id="results-data" data-filters="{{ filters.query_string }}">
+    {% if stats.total == 0 %}
+    <article class="empty-state">
+        <h3>No responses yet</h3>
+        {% if filters.is_active %}
+        <p>No responses match the current filters — try resetting them.</p>
+        {% else %}
+        <p>Be the first: <a href="/">fill in the survey</a> and check back here.</p>
+        {% endif %}
+    </article>
+    {% else %}
+    <div class="summary-chips" aria-label="Summary">
+        <span class="chip-static"><strong>{{ stats.total }}</strong> respondents</span>
+        <span class="chip-static"><strong>{{ stats.visited | length }}</strong> countries visited</span>
+        <span class="chip-static"><strong>{{ stats.wishlist | length }}</strong> countries on wishlists</span>
+        <span class="chip-static"><strong>{{ stats.favourites_cast }}</strong> favourites cast</span>
+    </div>
+    {% include "partials/table.html" %}
+    {% endif %}
+</div>

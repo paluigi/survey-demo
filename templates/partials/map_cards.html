@@ -1,0 +1,23 @@
+<article class="map-card">
+    <h3>{{ row.name }}</h3>
+    {% if total == 0 %}
+    <p>No responses match the current filters.</p>
+    {% else %}
+    <dl class="map-card-stats">
+        <div>
+            <dt>Visited</dt>
+            <dd><strong>{{ row.visited }}</strong> ({{ ((row.visited / total) * 100) | round(0) | int }}%)</dd>
+        </div>
+        <div>
+            <dt>Want to visit</dt>
+            <dd><strong>{{ row.want }}</strong> ({{ ((row.want / total) * 100) | round(0) | int }}%)</dd>
+        </div>
+        <div>
+            <dt>Favourite</dt>
+            <dd><strong>{{ row.favourite }}</strong> ({{ ((row.favourite / total) * 100) | round(0) | int }}%)</dd>
+        </div>
+    </dl>
+    <p class="muted small">Percentages over {{ total }} respondents in the current selection.</p>
+    {% endif %}
+    <button type="button" class="outline" data-clear-selection>Clear selection</button>
+</article>
